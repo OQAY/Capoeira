@@ -246,18 +246,18 @@ export default function Dashboard() {
               Porém, os SAFs apresentam a melhor relação custo-benefício quando
               considerados os indicadores socioeconômicos.
             </p>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-4 pt-4 border-t border-lime/10">
               <div className="text-center">
-                <p className="font-display text-2xl font-bold text-golden">79%</p>
-                <p className="text-xs text-cream/40">Plantio Nativo</p>
+                <p className="font-mono text-4xl md:text-5xl font-bold text-golden tabular-nums tracking-tight leading-tight">79%</p>
+                <p className="text-xs text-cream/50 mt-1">Plantio Nativo</p>
               </div>
               <div className="text-center">
-                <p className="font-display text-2xl font-bold text-lime">77%</p>
-                <p className="text-xs text-cream/40">SAF</p>
+                <p className="font-mono text-4xl md:text-5xl font-bold text-lime tabular-nums tracking-tight leading-tight">77%</p>
+                <p className="text-xs text-cream/50 mt-1">SAF</p>
               </div>
               <div className="text-center">
-                <p className="font-display text-2xl font-bold text-olive">69%</p>
-                <p className="text-xs text-cream/40">Regeneração</p>
+                <p className="font-mono text-4xl md:text-5xl font-bold text-olive tabular-nums tracking-tight leading-tight">69%</p>
+                <p className="text-xs text-cream/50 mt-1">Regeneração</p>
               </div>
             </div>
           </div>
