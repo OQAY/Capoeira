@@ -171,7 +171,7 @@ export default function About() {
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <img src="/capoeira-logo.png" alt="CAPOEIRA" className="w-10 h-10 object-contain" />
-                <span className="font-display text-2xl font-bold tracking-wide">CAPOEIRA</span>
+                <img src="/capoeira-wordmark.png" alt="CAPOEIRA" className="h-8 object-contain" />
               </div>
               <p className="text-cream/50 text-sm leading-relaxed max-w-xs">
                 Centro Avançado em Pesquisas Socioecológicas para a Recuperação Ambiental da Amazônia
