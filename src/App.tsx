@@ -19,13 +19,16 @@ function ScrollToTop() {
   return (
     <button
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      className={`fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-lime text-forest shadow-lg shadow-lime/30 flex items-center justify-center transition-all duration-300 hover:bg-lime/90 hover:scale-110 ${
+      className={`fixed bottom-6 right-6 z-50 flex flex-col items-center gap-1 transition-all duration-300 hover:scale-110 ${
         visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
       }`}
       style={{ animation: visible ? 'gentle-bounce 2s ease-in-out infinite' : 'none' }}
       aria-label="Voltar ao topo"
     >
-      <ChevronUp size={24} strokeWidth={3} />
+      <ChevronUp size={20} strokeWidth={3} className="text-forest" />
+      <div className="w-14 h-14 rounded-full bg-lime shadow-lg shadow-lime/30 flex items-center justify-center hover:bg-lime/90">
+        <img src="/capoeira-logo.png" alt="Topo" className="w-9 h-9 object-contain" />
+      </div>
     </button>
   )
 }
