@@ -2,6 +2,7 @@ import { useScrollReveal } from '../hooks/useScrollReveal'
 import { Users, Globe, BookOpen, Mail, MapPin, Building2 } from 'lucide-react'
 import { partnerInstitutions } from '../data/mockData'
 
+
 const coordinators = [
   {
     name: 'Dra. Joice Nunes Ferreira',
@@ -62,8 +63,8 @@ export default function About() {
           {/* Mission quote */}
           <div className="max-w-4xl mx-auto mb-20 relative">
             <div className="bg-gradient-to-br from-forest to-forest-light rounded-3xl p-10 md:p-14 relative overflow-hidden">
-              <div className="absolute top-4 left-6 text-lime/20 font-display text-9xl leading-none">"</div>
-              <blockquote className="relative z-10">
+              <div className="absolute -top-4 left-4 text-lime/15 font-display text-[10rem] leading-none select-none pointer-events-none">"</div>
+              <blockquote className="relative z-10 pt-8">
                 <p className="font-display text-2xl md:text-3xl text-cream leading-relaxed italic">
                   Nos últimos 70 anos, a Amazônia foi intensamente destruída. Por que não podemos imaginar
                   que os próximos 70 anos, que é o tempo de uma vida, seja um período de resiliência e
@@ -138,11 +139,11 @@ export default function About() {
             <h3 className="font-display text-2xl font-bold text-forest text-center mb-10">
               Instituições Parceiras
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 max-w-5xl mx-auto">
               {partnerInstitutions.map((inst) => (
                 <div
                   key={inst}
-                  className="bg-white px-4 py-3 rounded-xl border border-forest/5 text-sm text-brown/70 hover:text-forest hover:border-forest/20 hover:shadow-sm transition-all duration-200 text-center"
+                  className="bg-white px-4 py-3.5 rounded-xl border border-forest/5 text-sm text-brown/70 hover:text-forest hover:border-forest/20 hover:shadow-sm transition-all duration-200 text-center flex items-center justify-center min-h-[60px]"
                 >
                   {inst}
                 </div>
@@ -159,11 +160,7 @@ export default function About() {
             {/* Brand */}
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <svg viewBox="0 0 40 40" className="w-10 h-10">
-                  <circle cx="20" cy="20" r="18" fill="#80B918" opacity="0.2"/>
-                  <path d="M20 8C16 12 12 18 14 24C16 30 20 28 20 28C20 28 24 30 26 24C28 18 24 12 20 8Z" fill="#80B918"/>
-                  <path d="M20 8L18 5C18 5 22 4 24 7L20 8Z" fill="#588157"/>
-                </svg>
+                <img src="/capoeira-logo.png" alt="CAPOEIRA" className="w-10 h-10 object-contain" />
                 <span className="font-display text-2xl font-bold tracking-wide">CAPOEIRA</span>
               </div>
               <p className="text-cream/50 text-sm leading-relaxed max-w-xs">
