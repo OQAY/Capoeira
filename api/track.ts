@@ -27,6 +27,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const latitude = req.headers['x-vercel-ip-latitude'] as string || null
     const longitude = req.headers['x-vercel-ip-longitude'] as string || null
 
+    // Ignore bots and crawlers — don't save to DB
+    const ua = (req.headers['user-agent'] || '').toLowerCase()
+    const botPatterns = ['bot', 'crawler', 'spider', 'screenshot', 'headless', 'lighthouse', 'pagespeed', 'slurp', 'mediapartners', 'prerender', 'phantomjs', 'vercel-screenshot']
+    if (botPatterns.some(p => ua.includes(p))) {
+      return res.status(204).end()
+    }
+
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body || {}
 
     await supabase.from('visits').insert({
