@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect, useCallback } from 'react'
 import { MapContainer, TileLayer, CircleMarker, Popup, useMap } from 'react-leaflet'
 import { MapPin, Trees, Droplets, Sprout, TreePine, X, Leaf, BarChart3 } from 'lucide-react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
@@ -35,10 +35,55 @@ function FitBounds({ sites }: { sites: StudySite[] }) {
   return null
 }
 
+// Disable one-finger drag on mobile — require two fingers to pan
+function MobileTouchHandler({ onOverlayChange }: { onOverlayChange: (show: boolean) => void }) {
+  const map = useMap()
+
+  useEffect(() => {
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+    if (!isTouchDevice) return
+
+    // Disable default touch dragging
+    map.dragging.disable()
+
+    const container = map.getContainer()
+    let touchTimeout: ReturnType<typeof setTimeout>
+
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length >= 2) {
+        map.dragging.enable()
+        onOverlayChange(false)
+      } else {
+        map.dragging.disable()
+        onOverlayChange(true)
+        clearTimeout(touchTimeout)
+        touchTimeout = setTimeout(() => onOverlayChange(false), 1500)
+      }
+    }
+
+    const handleTouchEnd = () => {
+      map.dragging.disable()
+    }
+
+    container.addEventListener('touchstart', handleTouchStart, { passive: true })
+    container.addEventListener('touchend', handleTouchEnd, { passive: true })
+
+    return () => {
+      container.removeEventListener('touchstart', handleTouchStart)
+      container.removeEventListener('touchend', handleTouchEnd)
+      clearTimeout(touchTimeout)
+    }
+  }, [map, onOverlayChange])
+
+  return null
+}
+
 export default function MapExplorer() {
   const { ref, isVisible } = useScrollReveal()
   const [activeFilters, setActiveFilters] = useState<string[]>([])
   const [selectedSite, setSelectedSite] = useState<StudySite | null>(null)
+  const [showTouchHint, setShowTouchHint] = useState(false)
+  const handleOverlayChange = useCallback((show: boolean) => setShowTouchHint(show), [])
 
   const filteredSites = activeFilters.length === 0
     ? studySites
@@ -55,8 +100,18 @@ export default function MapExplorer() {
   const center: [number, number] = [-5.5, -55]
 
   return (
-    <section id="explorador" className="py-20 md:py-28 bg-cream-light leaf-pattern">
-      <div ref={ref} className={`max-w-7xl mx-auto px-6 fade-in-section ${isVisible ? 'visible' : ''}`}>
+    <section id="explorador" className="py-20 md:py-28 bg-cream-light relative overflow-hidden">
+      {/* Pattern background */}
+      <div
+        className="absolute inset-0 opacity-[0.025]"
+        style={{
+          backgroundImage: 'url(/capoeira-pattern.png)',
+          backgroundSize: '120px',
+          backgroundRepeat: 'repeat',
+          filter: 'brightness(0) sepia(1) hue-rotate(70deg) saturate(3)',
+        }}
+      />
+      <div ref={ref} className={`max-w-7xl mx-auto px-6 fade-in-section relative z-10 ${isVisible ? 'visible' : ''}`}>
         {/* Header */}
         <div className="text-center mb-14">
           <span className="inline-block px-4 py-1.5 bg-forest/10 text-forest text-sm font-semibold rounded-full mb-4">
@@ -79,13 +134,12 @@ export default function MapExplorer() {
               <button
                 key={eco.key}
                 onClick={() => toggleFilter(eco.key)}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border-2 transition-all duration-200 text-left ${
-                  activeFilters.includes(eco.key)
-                    ? 'border-forest bg-forest text-cream shadow-lg'
-                    : activeFilters.length === 0
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border-2 transition-all duration-200 text-left ${activeFilters.includes(eco.key)
+                  ? 'border-forest bg-forest text-cream shadow-lg'
+                  : activeFilters.length === 0
                     ? 'border-forest/20 bg-white text-forest hover:border-forest/40 hover:shadow-md'
                     : 'border-gray-200 bg-white/50 text-gray-400 hover:border-forest/20'
-                }`}
+                  }`}
               >
                 <span
                   className="w-4 h-4 rounded-full shrink-0"
@@ -139,12 +193,14 @@ export default function MapExplorer() {
                 style={{ height: '100%', width: '100%' }}
                 scrollWheelZoom={true}
                 zoomControl={true}
+                touchZoom={true}
               >
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                   url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
                 />
                 <FitBounds sites={filteredSites} />
+                <MobileTouchHandler onOverlayChange={handleOverlayChange} />
 
                 {filteredSites.map(site => (
                   <CircleMarker
@@ -178,6 +234,16 @@ export default function MapExplorer() {
                   </CircleMarker>
                 ))}
               </MapContainer>
+              {/* Touch hint overlay */}
+              <div
+                className={`absolute inset-0 bg-black/40 backdrop-blur-[2px] flex items-center justify-center rounded-2xl z-[999] pointer-events-none transition-opacity duration-300 ${
+                  showTouchHint ? 'opacity-100' : 'opacity-0'
+                }`}
+              >
+                <div className="bg-white/90 rounded-xl px-5 py-3 shadow-lg text-center">
+                  <p className="text-sm font-semibold text-forest">Use dois dedos para mover o mapa</p>
+                </div>
+              </div>
             </div>
 
             {/* Selected site detail card */}

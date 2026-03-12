@@ -1,5 +1,5 @@
 import { useScrollReveal } from '../hooks/useScrollReveal'
-import { Users, Globe, BookOpen, Mail, MapPin, Building2 } from 'lucide-react'
+import { Users, Globe, BookOpen, Mail, MapPin, Building2, Instagram, Linkedin } from 'lucide-react'
 import { partnerInstitutions } from '../data/mockData'
 
 
@@ -190,6 +190,14 @@ export default function About() {
                   <MapPin size={14} className="text-cream/40" />
                   Belém, PA — Embrapa Amazônia Oriental
                 </div>
+                <a href="https://www.instagram.com/centrocapoeira/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-cream transition-colors">
+                  <Instagram size={14} className="text-cream/40" />
+                  @centrocapoeira
+                </a>
+                <a href="https://www.linkedin.com/company/centro-capoeira/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-cream transition-colors">
+                  <Linkedin size={14} className="text-cream/40" />
+                  Centro CAPOEIRA
+                </a>
               </div>
             </div>
 
