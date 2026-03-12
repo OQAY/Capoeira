@@ -170,7 +170,7 @@ export default function About() {
             {/* Brand */}
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <img src="/capoeira-logo.png" alt="CAPOEIRA" className="w-10 h-10 object-contain" />
+                <img src="/capoeira-logo.png" alt="CAPOEIRA" className="w-20 h-20 object-contain" />
                 <img src="/capoeira-wordmark.png" alt="CAPOEIRA" className="h-8 object-contain" />
               </div>
               <p className="text-cream/50 text-sm leading-relaxed max-w-xs">
@@ -189,10 +189,6 @@ export default function About() {
                 <div className="flex items-center gap-2">
                   <MapPin size={14} className="text-cream/40" />
                   Belém, PA — Embrapa Amazônia Oriental
-                </div>
-                <div className="flex items-center gap-2">
-                  <Globe size={14} className="text-cream/40" />
-                  Trabalho 100% remoto
                 </div>
               </div>
             </div>
@@ -226,14 +222,13 @@ export default function About() {
           {/* Bottom */}
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-cream/30">
-              Protótipo demonstrativo — Plataforma de Dados para Restauração da Amazônia
+              © Centro CAPOEIRA — Plataforma de Dados para Restauração da Amazônia
             </p>
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-2">
                 <span className="text-xs font-mono text-cream/20 bg-white/5 px-2 py-1 rounded">Embrapa</span>
                 <span className="text-xs font-mono text-cream/20 bg-white/5 px-2 py-1 rounded">CNPq</span>
                 <span className="text-xs font-mono text-cream/20 bg-white/5 px-2 py-1 rounded">MCTI</span>
-                <span className="text-xs font-mono text-cream/20 bg-white/5 px-2 py-1 rounded">Gov.br</span>
               </div>
             </div>
           </div>
