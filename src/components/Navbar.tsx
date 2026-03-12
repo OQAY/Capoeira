@@ -125,9 +125,10 @@ export default function Navbar() {
       </div>
       {/* Wave bottom edge — extends below nav */}
       <div className={`absolute left-0 right-0 top-full pointer-events-none transition-opacity duration-500 ${scrolled ? 'opacity-100' : 'opacity-0'}`}>
-        <svg viewBox="0 0 1440 20" preserveAspectRatio="none" className="w-full h-3 block -translate-y-[1px]">
+        {/* viewBox height + h-X = tamanho | números no path = agressividade das ondas */}
+        <svg viewBox="0 0 1440 40" preserveAspectRatio="none" className="w-full h-5 block -translate-y-[1px]">
           <path
-            d="M0,0 L1440,0 L1440,8 C1200,20 960,4 720,14 C480,24 240,6 0,12 Z"
+            d="M0,0 L1440,0 L1440,10 C1200,40 960,4 720,30 C480,44 240,6 0,18 Z"
             fill="#1B4332"
           />
         </svg>
