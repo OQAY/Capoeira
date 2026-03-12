@@ -42,10 +42,6 @@
   }
 }
 
-/* Organic leaf background pattern */
-.leaf-pattern {
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5C20 15 10 25 15 35C20 45 30 40 30 40C30 40 40 45 45 35C50 25 40 15 30 5Z' fill='%231B4332' opacity='0.03'/%3E%3C/svg%3E");
-}
 
 /* Animated counter */
 @keyframes countUp {
@@ -130,6 +126,12 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-forest);
+}
+
+/* Scroll to top bounce */
+@keyframes gentle-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
 
 /* Chart tooltip */

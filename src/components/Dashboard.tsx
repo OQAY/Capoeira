@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {
-  LineChart, Line, BarChart, Bar, PieChart, Pie, Cell,
-  XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
+  AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell, LabelList,
+  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from 'recharts'
 import { TrendingUp, Leaf, TreePine, BarChart3 } from 'lucide-react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
@@ -176,12 +176,13 @@ export default function Dashboard() {
               <BarChart data={carbonByRegion} barCategoryGap="20%">
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
                 <XAxis dataKey="region" stroke="rgba(255,255,255,0.3)" fontSize={11} />
-                <YAxis stroke="rgba(255,255,255,0.3)" fontSize={11} />
+                <YAxis stroke="rgba(255,255,255,0.3)" fontSize={11} domain={[0, (dataMax: number) => Math.ceil(dataMax * 1.15)]} />
                 <Tooltip content={<BarTooltip />} cursor={{ fill: 'rgba(255,255,255,0.03)' }} />
                 <Bar dataKey="carbon" radius={[6, 6, 0, 0]}>
                   {carbonByRegion.map((entry, i) => (
                     <Cell key={i} fill={entry.fill} />
                   ))}
+                  <LabelList dataKey="carbon" position="top" fill="rgba(255,255,255,0.7)" fontSize={12} fontWeight={600} />
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
@@ -204,6 +205,18 @@ export default function Dashboard() {
                   paddingAngle={4}
                   dataKey="value"
                   strokeWidth={0}
+                  label={({ cx, cy, midAngle, innerRadius, outerRadius, percent }: any) => {
+                    const RADIAN = Math.PI / 180;
+                    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+                    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+                    return (
+                      <text x={x} y={y} fill="#fff" textAnchor="middle" dominantBaseline="central" fontSize={13} fontWeight={700}>
+                        {`${(percent * 100).toFixed(0)}%`}
+                      </text>
+                    );
+                  }}
+                  labelLine={false}
                 >
                   {siteDistribution.map((entry, i) => (
                     <Cell key={i} fill={entry.fill} />
@@ -221,12 +234,16 @@ export default function Dashboard() {
               </PieChart>
             </ResponsiveContainer>
             <div className="grid grid-cols-2 gap-2 mt-2">
-              {siteDistribution.map(d => (
-                <div key={d.name} className="flex items-center gap-2 text-xs text-cream/60">
-                  <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: d.fill }} />
-                  {d.name}
-                </div>
-              ))}
+              {siteDistribution.map(d => {
+                const total = siteDistribution.reduce((sum, s) => sum + s.value, 0);
+                const pct = ((d.value / total) * 100).toFixed(0);
+                return (
+                  <div key={d.name} className="flex items-center gap-2 text-xs text-cream/60">
+                    <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: d.fill }} />
+                    <span>{d.name} <span className="text-cream/80 font-semibold">{pct}%</span></span>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
