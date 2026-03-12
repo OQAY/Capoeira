@@ -44,8 +44,18 @@ export default function About() {
 
   return (
     <>
-      <section id="sobre" className="py-20 md:py-28 bg-cream-light">
-        <div ref={ref} className={`max-w-7xl mx-auto px-6 fade-in-section ${isVisible ? 'visible' : ''}`}>
+      <section id="sobre" className="py-20 md:py-28 bg-cream-light relative overflow-hidden">
+        {/* Pattern background */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: 'url(/capoeira-pattern.png)',
+            backgroundSize: '120px',
+            backgroundRepeat: 'repeat',
+            filter: 'brightness(0) sepia(1) hue-rotate(70deg) saturate(3)',
+          }}
+        />
+        <div ref={ref} className={`max-w-7xl mx-auto px-6 fade-in-section relative z-10 ${isVisible ? 'visible' : ''}`}>
           {/* Header */}
           <div className="text-center mb-16">
             <span className="inline-block px-4 py-1.5 bg-forest/10 text-forest text-sm font-semibold rounded-full mb-4">
@@ -143,7 +153,7 @@ export default function About() {
               {partnerInstitutions.map((inst) => (
                 <div
                   key={inst}
-                  className="bg-white px-4 py-3.5 rounded-xl border border-forest/5 text-sm text-brown/70 hover:text-forest hover:border-forest/20 hover:shadow-sm transition-all duration-200 text-center flex items-center justify-center min-h-[60px]"
+                  className="bg-white px-4 py-3.5 rounded-xl border border-forest/5 text-sm text-brown/70 hover:text-forest hover:border-forest/20 hover:shadow-sm transition-all duration-200 text-left flex items-center"
                 >
                   {inst}
                 </div>
