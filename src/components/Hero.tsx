@@ -117,12 +117,12 @@ export default function Hero() {
 
           {/* Stats */}
           <div
-            className={`grid grid-cols-2 md:grid-cols-4 gap-8 transition-all duration-700 delay-700 ${
+            className={`grid grid-cols-2 lg:grid-cols-4 gap-8 transition-all duration-700 delay-700 ${
               loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
             {stats.map((stat) => (
-              <div key={stat.label} className="text-center md:text-left">
+              <div key={stat.label} className="text-center lg:text-left">
                 <AnimatedNumber end={stat.end} suffix={stat.suffix} prefix={stat.prefix || ''} />
                 <p className="text-cream/60 text-sm mt-1 font-medium tracking-wide uppercase">
                   {stat.label}
