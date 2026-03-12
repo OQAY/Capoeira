@@ -128,8 +128,8 @@ export default function MapExplorer() {
 
         <div className="grid lg:grid-cols-[300px_1fr] gap-8">
           {/* Sidebar Filters */}
-          <div className="space-y-4">
-            <h3 className="font-display text-lg font-bold text-forest mb-3">Tipo de Ecossistema</h3>
+          <div className="space-y-3 lg:space-y-4">
+            <h3 className="font-display text-lg font-bold text-forest mb-2 lg:mb-3">Tipo de Ecossistema</h3>
             {ecosystemTypes.map((eco) => (
               <button
                 key={eco.key}
@@ -161,8 +161,8 @@ export default function MapExplorer() {
               </button>
             )}
 
-            {/* Legend */}
-            <div className="mt-8 p-4 bg-white rounded-xl border border-forest/10">
+            {/* Legend — hidden on mobile since filters already show colors */}
+            <div className="hidden lg:block mt-8 p-4 bg-white rounded-xl border border-forest/10">
               <h4 className="text-xs font-bold text-forest/60 uppercase tracking-wider mb-3">Legenda</h4>
               <div className="space-y-2">
                 {ecosystemTypes.map(eco => (
@@ -175,7 +175,7 @@ export default function MapExplorer() {
             </div>
 
             {/* Sites count */}
-            <div className="p-4 bg-forest/5 rounded-xl text-center">
+            <div className="hidden lg:block p-4 bg-forest/5 rounded-xl text-center">
               <p className="font-mono text-2xl font-bold text-forest">{filteredSites.length}</p>
               <p className="text-xs text-brown/60 mt-1">sítios de estudo</p>
             </div>
