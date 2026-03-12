@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240">
+  <!-- Leaves at top -->
+  <path d="M105 55 C95 35, 85 15, 100 5 C115 15, 108 35, 105 55Z" fill="#7CB342"/>
+  <path d="M108 50 C118 30, 130 18, 125 5 C140 18, 128 35, 115 50Z" fill="#558B2F"/>
+  <!-- Small bird/leaf flying right -->
+  <path d="M130 35 C138 28, 150 25, 155 30 C148 30, 140 33, 135 40Z" fill="#7CB342"/>
+
+  <!-- Circle formed by 3 people -->
+  <!-- Person 1 - bottom left, arms up -->
+  <circle cx="72" cy="100" r="8" fill="#7CB342"/>
+  <path d="M72 108 C72 108, 65 130, 68 150 C70 158, 75 165, 72 180" stroke="#7CB342" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M72 115 C60 100, 55 85, 65 72" stroke="#7CB342" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M72 115 C82 105, 90 90, 95 70" stroke="#7CB342" stroke-width="5" fill="none" stroke-linecap="round"/>
+
+  <!-- Person 2 - bottom right, arms up -->
+  <circle cx="132" cy="120" r="8" fill="#7CB342"/>
+  <path d="M132 128 C135 145, 130 160, 135 175" stroke="#7CB342" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M132 133 C145 120, 148 105, 140 85" stroke="#7CB342" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M132 133 C120 125, 112 110, 110 95" stroke="#7CB342" stroke-width="5" fill="none" stroke-linecap="round"/>
+
+  <!-- Person 3 - top, smaller -->
+  <circle cx="105" cy="68" r="7" fill="#7CB342"/>
+  <path d="M105 75 C105 82, 108 90, 110 98" stroke="#7CB342" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M105 80 C95 82, 85 88, 78 95" stroke="#7CB342" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+  <path d="M105 80 C115 78, 125 82, 130 90" stroke="#7CB342" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Connecting arc to form the circle shape -->
+  <path d="M68 170 C55 155, 48 130, 55 110 C58 100, 62 92, 65 85" stroke="#7CB342" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.6"/>
+  <path d="M135 165 C148 150, 155 130, 150 108 C147 98, 143 92, 138 85" stroke="#7CB342" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.6"/>
+</svg>
