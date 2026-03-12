@@ -59,7 +59,13 @@ export default function Hero() {
           >
             <span className="w-2 h-2 rounded-full bg-lime animate-pulse" />
             <span className="text-sm text-cream/80 font-medium">
-              Centro Avançado de Pesquisas Socioecológicas
+              <span className="text-lime font-bold">C</span>entro{' '}
+              <span className="text-lime font-bold">A</span>vançado em{' '}
+              <span className="text-lime font-bold">P</span>esquisas{' '}
+              Soci<span className="text-lime font-bold">o</span>ecológicas para a{' '}
+              <span className="text-lime font-bold">R</span><span className="text-lime font-bold">e</span>cuperação{' '}
+              Amb<span className="text-lime font-bold">i</span>ental{' '}
+              da <span className="text-lime font-bold">A</span>mazônia
             </span>
           </div>
 
