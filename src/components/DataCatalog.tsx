@@ -90,8 +90,18 @@ export default function DataCatalog() {
   })
 
   return (
-    <section id="dados" className="py-20 md:py-28 bg-cream-light">
-      <div ref={ref} className={`max-w-7xl mx-auto px-6 fade-in-section ${isVisible ? 'visible' : ''}`}>
+    <section id="dados" className="py-20 md:py-28 bg-cream-light relative overflow-hidden">
+      {/* Pattern background */}
+      <div
+        className="absolute inset-0 opacity-[0.025]"
+        style={{
+          backgroundImage: 'url(/capoeira-pattern.png)',
+          backgroundSize: '120px',
+          backgroundRepeat: 'repeat',
+          filter: 'brightness(0) sepia(1) hue-rotate(70deg) saturate(3)',
+        }}
+      />
+      <div ref={ref} className={`max-w-7xl mx-auto px-6 fade-in-section relative z-10 ${isVisible ? 'visible' : ''}`}>
         {/* Header */}
         <div className="text-center mb-14">
           <span className="inline-block px-4 py-1.5 bg-forest/10 text-forest text-sm font-semibold rounded-full mb-4">
@@ -131,11 +141,11 @@ export default function DataCatalog() {
         </div>
 
         {/* Results count */}
-        <div className="flex items-center justify-between mb-4 px-1">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 px-1 gap-2">
           <p className="text-sm text-brown/50">
             <span className="font-bold text-forest">{filtered.length}</span> base{filtered.length !== 1 ? 's' : ''} encontrada{filtered.length !== 1 ? 's' : ''}
           </p>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             {['publicado', 'revisao', 'processando'].map(s => {
               const cfg = statusConfig[s as keyof typeof statusConfig]
               const count = filtered.filter(d => d.status === s).length
