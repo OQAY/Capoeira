@@ -106,7 +106,7 @@ export default function Hero() {
           >
             <a
               href="#explorador"
-              className="group px-8 py-4 bg-lime text-forest font-bold rounded-full hover:bg-lime/90 transition-all duration-300 hover:shadow-xl hover:shadow-lime/20 flex items-center gap-2"
+              className="group px-5 py-3 md:px-8 md:py-4 bg-lime text-forest font-bold text-sm md:text-base rounded-full hover:bg-lime/90 transition-all duration-300 hover:shadow-xl hover:shadow-lime/20 flex items-center gap-2"
             >
               Explorar Dados
               <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -115,7 +115,7 @@ export default function Hero() {
             </a>
             <a
               href="#sobre"
-              className="px-8 py-4 border-2 border-cream/30 text-cream font-semibold rounded-full hover:bg-cream/10 hover:border-cream/50 transition-all duration-300"
+              className="px-5 py-3 md:px-8 md:py-4 border-2 border-cream/30 text-cream font-semibold text-sm md:text-base rounded-full hover:bg-cream/10 hover:border-cream/50 transition-all duration-300"
             >
               Conheça o Centro
             </a>
