@@ -106,7 +106,7 @@ export default function Dashboard() {
               period === 'all' ? 'bg-lime/20 text-lime' : 'text-cream/40 hover:text-cream/60'
             }`}
           >
-            2015—2025
+            2015—2026
           </button>
           <button
             onClick={() => setPeriod('recent')}
@@ -120,50 +120,110 @@ export default function Dashboard() {
 
         {/* Charts Grid */}
         <div className="grid lg:grid-cols-2 gap-6">
-          {/* Line Chart */}
+          {/* Area Chart */}
           <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
             <h3 className="font-display text-lg font-bold text-cream mb-1">
               Recuperação de Cobertura Vegetal
             </h3>
-            <p className="text-sm text-cream/40 mb-6">% de cobertura por método de restauração</p>
+            <p className="text-sm text-cream/40 mb-4">% de cobertura por método de restauração</p>
+            {/* Custom Legend */}
+            <div className="flex flex-wrap gap-x-5 gap-y-1 mb-4">
+              {[
+                { label: 'Meta', color: '#fbbf24', dashed: true },
+                { label: 'Plantio de Nativas', color: '#D4A574' },
+                { label: 'Sistemas Agroflorestais', color: '#80B918' },
+                { label: 'Regeneração Natural', color: '#34d399' },
+              ].map(item => (
+                <div key={item.label} className="flex items-center gap-1.5 text-[11px] text-cream/60">
+                  <span
+                    className="w-3 h-[3px] rounded-full"
+                    style={{
+                      backgroundColor: (item as any).dashed ? 'transparent' : item.color,
+                      borderBottom: (item as any).dashed ? `2px dashed ${item.color}` : undefined,
+                    }}
+                  />
+                  {item.label}
+                </div>
+              ))}
+            </div>
             <ResponsiveContainer width="100%" height={280}>
-              <LineChart data={chartData}>
+              <AreaChart data={chartData}>
+                <defs>
+                  <linearGradient id="gradNatural" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#34d399" stopOpacity={0.25} />
+                    <stop offset="100%" stopColor="#34d399" stopOpacity={0} />
+                  </linearGradient>
+                  <linearGradient id="gradPlantio" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#D4A574" stopOpacity={0.25} />
+                    <stop offset="100%" stopColor="#D4A574" stopOpacity={0} />
+                  </linearGradient>
+                  <linearGradient id="gradSaf" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#80B918" stopOpacity={0.25} />
+                    <stop offset="100%" stopColor="#80B918" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                <XAxis dataKey="year" stroke="rgba(255,255,255,0.3)" fontSize={11} />
-                <YAxis stroke="rgba(255,255,255,0.3)" fontSize={11} tickFormatter={(v) => `${v}%`} />
+                <XAxis dataKey="year" stroke="rgba(255,255,255,0.3)" fontSize={11} tickLine={false} />
+                <YAxis stroke="rgba(255,255,255,0.3)" fontSize={11} tickFormatter={(v) => `${v}%`} tickLine={false} axisLine={false} domain={[0, 60]} />
                 <Tooltip content={<CustomTooltip />} />
-                <Legend
-                  wrapperStyle={{ fontSize: '11px', color: 'rgba(255,255,255,0.6)' }}
-                />
-                <Line
+                {/* Meta line - dashed */}
+                <Area
                   type="monotone"
-                  dataKey="natural"
-                  name="Regeneração Natural"
-                  stroke="#80B918"
-                  strokeWidth={2.5}
-                  dot={{ r: 3, fill: '#80B918' }}
-                  activeDot={{ r: 6 }}
+                  dataKey="meta"
+                  name="Meta"
+                  stroke="#fbbf24"
+                  strokeWidth={2}
+                  strokeDasharray="6 4"
+                  fill="none"
+                  dot={false}
+                  activeDot={{ r: 4, fill: '#fbbf24', stroke: '#fff', strokeWidth: 2 }}
                 />
-                <Line
+                <Area
                   type="monotone"
                   dataKey="plantio"
                   name="Plantio de Nativas"
                   stroke="#D4A574"
                   strokeWidth={2.5}
-                  dot={{ r: 3, fill: '#D4A574' }}
-                  activeDot={{ r: 6 }}
+                  fill="url(#gradPlantio)"
+                  dot={false}
+                  activeDot={{ r: 5, fill: '#D4A574', stroke: '#fff', strokeWidth: 2 }}
                 />
-                <Line
+                <Area
                   type="monotone"
                   dataKey="saf"
                   name="Sistemas Agroflorestais"
-                  stroke="#588157"
+                  stroke="#80B918"
                   strokeWidth={2.5}
-                  dot={{ r: 3, fill: '#588157' }}
-                  activeDot={{ r: 6 }}
+                  fill="url(#gradSaf)"
+                  dot={false}
+                  activeDot={{ r: 5, fill: '#80B918', stroke: '#fff', strokeWidth: 2 }}
                 />
-              </LineChart>
+                <Area
+                  type="monotone"
+                  dataKey="natural"
+                  name="Regeneração Natural"
+                  stroke="#34d399"
+                  strokeWidth={2.5}
+                  fill="url(#gradNatural)"
+                  dot={false}
+                  activeDot={{ r: 5, fill: '#34d399', stroke: '#fff', strokeWidth: 2 }}
+                />
+              </AreaChart>
             </ResponsiveContainer>
+            {/* End values */}
+            <div className="flex flex-wrap justify-center gap-x-5 gap-y-1 mt-3">
+              {[
+                { label: 'Meta', value: chartData[chartData.length - 1]?.meta, color: '#fbbf24' },
+                { label: 'Plantio', value: chartData[chartData.length - 1]?.plantio, color: '#D4A574' },
+                { label: 'SAF', value: chartData[chartData.length - 1]?.saf, color: '#80B918' },
+                { label: 'Natural', value: chartData[chartData.length - 1]?.natural, color: '#34d399' },
+              ].map(item => (
+                <div key={item.label} className="text-center">
+                  <p className="text-base font-bold font-mono" style={{ color: item.color }}>{item.value}%</p>
+                  <p className="text-[10px] text-cream/40">{item.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Bar Chart */}

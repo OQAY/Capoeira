@@ -43,17 +43,18 @@ export const ecosystemTypes = [
 ] as const
 
 export const coverageData = [
-  { year: 2015, natural: 12, plantio: 8, saf: 10 },
-  { year: 2016, natural: 18, plantio: 15, saf: 16 },
-  { year: 2017, natural: 25, plantio: 24, saf: 23 },
-  { year: 2018, natural: 31, plantio: 34, saf: 32 },
-  { year: 2019, natural: 38, plantio: 42, saf: 41 },
-  { year: 2020, natural: 44, plantio: 51, saf: 50 },
-  { year: 2021, natural: 50, plantio: 58, saf: 57 },
-  { year: 2022, natural: 55, plantio: 64, saf: 63 },
-  { year: 2023, natural: 61, plantio: 70, saf: 68 },
-  { year: 2024, natural: 65, plantio: 75, saf: 73 },
-  { year: 2025, natural: 69, plantio: 79, saf: 77 },
+  { year: 2015, natural: 5, plantio: 7, saf: 6, meta: 10 },
+  { year: 2016, natural: 7, plantio: 10, saf: 9, meta: 14 },
+  { year: 2017, natural: 9, plantio: 13, saf: 11, meta: 18 },
+  { year: 2018, natural: 11, plantio: 16, saf: 14, meta: 22 },
+  { year: 2019, natural: 13, plantio: 18, saf: 16, meta: 26 },
+  { year: 2020, natural: 14, plantio: 20, saf: 18, meta: 30 },
+  { year: 2021, natural: 16, plantio: 23, saf: 21, meta: 34 },
+  { year: 2022, natural: 18, plantio: 26, saf: 24, meta: 38 },
+  { year: 2023, natural: 20, plantio: 29, saf: 27, meta: 42 },
+  { year: 2024, natural: 22, plantio: 32, saf: 29, meta: 46 },
+  { year: 2025, natural: 23, plantio: 34, saf: 31, meta: 50 },
+  { year: 2026, natural: 25, plantio: 37, saf: 34, meta: 54 },
 ]
 
 export const carbonByRegion = [

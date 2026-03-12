@@ -16,7 +16,7 @@ function AnimatedNumber({ end, suffix = '', prefix = '' }: { end: number; suffix
   }, [trigger])
 
   return (
-    <span ref={ref} className="font-mono text-4xl md:text-5xl font-bold text-lime tabular-nums tracking-tight">
+    <span ref={ref} className="font-mono text-3xl md:text-5xl font-bold text-lime tabular-nums tracking-tight">
       {prefix}{count}{suffix}
     </span>
   )
@@ -37,7 +37,7 @@ export default function Hero() {
   }, [])
 
   return (
-    <section id="inicio" className="relative min-h-screen flex flex-col justify-center overflow-hidden">
+    <section id="inicio" className="relative min-h-[100svh] flex flex-col justify-center overflow-hidden">
       {/* Background layers */}
       <div className="absolute inset-0 bg-gradient-to-br from-forest via-forest-light to-brown-dark" />
 
@@ -49,7 +49,7 @@ export default function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-20">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-24 md:pt-32 pb-28 md:pb-20">
         <div className="max-w-4xl">
           {/* Badge */}
           <div
@@ -71,7 +71,7 @@ export default function Hero() {
 
           {/* Title */}
           <h1
-            className={`font-display text-5xl md:text-6xl lg:text-7xl font-bold text-cream leading-tight mb-6 transition-all duration-700 delay-200 ${
+            className={`font-display text-4xl md:text-6xl lg:text-7xl font-bold text-cream leading-tight mb-6 transition-all duration-700 delay-200 ${
               loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
           >
@@ -100,7 +100,7 @@ export default function Hero() {
 
           {/* CTAs */}
           <div
-            className={`flex flex-wrap gap-4 mb-20 transition-all duration-700 delay-500 ${
+            className={`flex flex-wrap gap-4 mb-10 md:mb-20 transition-all duration-700 delay-500 ${
               loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
           >
@@ -140,7 +140,7 @@ export default function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
+      <div className="hidden md:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 animate-bounce">
         <span className="text-cream/40 text-xs tracking-widest uppercase">Explorar</span>
         <ChevronDown className="text-cream/40" size={20} />
       </div>

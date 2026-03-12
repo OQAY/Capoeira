@@ -102,10 +102,12 @@ export default function About() {
                 key={pillar.title}
                 className="bg-white rounded-2xl p-8 border border-forest/5 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
               >
-                <div className="w-14 h-14 bg-forest/5 rounded-2xl flex items-center justify-center text-forest group-hover:bg-forest group-hover:text-cream transition-all duration-300 mb-5">
-                  {pillar.icon}
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 bg-forest/5 rounded-xl flex items-center justify-center text-forest group-hover:bg-forest group-hover:text-cream transition-all duration-300 shrink-0">
+                    {pillar.icon}
+                  </div>
+                  <h3 className="font-display text-xl font-bold text-forest">{pillar.title}</h3>
                 </div>
-                <h3 className="font-display text-xl font-bold text-forest mb-3">{pillar.title}</h3>
                 <p className="text-brown/60 leading-relaxed text-sm">{pillar.description}</p>
               </div>
             ))}

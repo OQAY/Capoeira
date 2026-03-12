@@ -22,7 +22,7 @@ export function CapoeiraWordmark({ className = '' }: { className?: string; color
     <img
       src="/capoeira-wordmark.png"
       alt="CAPOEIRA"
-      className={`h-6 object-contain ${className}`}
+      className={`h-7 mt-2 object-contain ${className}`}
     />
   )
 }
