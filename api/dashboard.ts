@@ -238,6 +238,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         <thead>
           <tr>
             <th>Quando</th>
+            <th>Data/Hora</th>
             <th>Device</th>
             <th>Localização</th>
             <th>IP</th>
@@ -252,6 +253,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             return `
             <tr${isBot ? ' style="opacity:0.4"' : ''}>
               <td class="time">${timeAgo(v.created_at)}</td>
+              <td class="time">${new Date(v.created_at).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo', day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' })}</td>
               <td><span class="device-emoji">${deviceIcon(v.user_agent || '')}</span>${isBot ? '<span class="badge-bot">BOT</span>' : ''}</td>
               <td class="location">
                 ${v.country ? `<span class="flag">${flagEmoji(v.country)}</span>` : ''}
