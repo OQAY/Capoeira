@@ -29,12 +29,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Stats summary
   const { data: statsData } = await supabase
     .from('visits')
-    .select('country, city')
+    .select('ip, city, country')
 
-  const countries: Record<string, number> = {}
+  const ipVisits: Record<string, { count: number; city: string }> = {}
   const cities: Record<string, number> = {}
   statsData?.forEach((v) => {
-    if (v.country) countries[v.country] = (countries[v.country] || 0) + 1
+    if (v.ip) {
+      if (!ipVisits[v.ip]) ipVisits[v.ip] = { count: 0, city: v.city || '—' }
+      ipVisits[v.ip].count++
+    }
     if (v.city) cities[v.city] = (cities[v.city] || 0) + 1
   })
 
@@ -44,7 +47,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     showing: data?.length,
     offset,
     stats: {
-      top_countries: Object.entries(countries).sort((a, b) => b[1] - a[1]).slice(0, 10),
+      top_visitors: Object.entries(ipVisits)
+        .sort((a, b) => b[1].count - a[1].count)
+        .slice(0, 10)
+        .map(([ip, info]) => ({ ip, visits: info.count, city: info.city })),
       top_cities: Object.entries(cities).sort((a, b) => b[1] - a[1]).slice(0, 10),
     },
     visits: data,

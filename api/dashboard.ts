@@ -21,16 +21,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const allVisits = visits || []
 
   // Stats
-  const countries: Record<string, number> = {}
+  const ipVisits: Record<string, { count: number; city: string; lastSeen: string }> = {}
   const cities: Record<string, number> = {}
   const devices: { mobile: number; desktop: number; bot: number } = { mobile: 0, desktop: 0, bot: 0 }
   const byHour: Record<string, number> = {}
   const uniqueIPs = new Set<string>()
 
   allVisits.forEach((v) => {
-    if (v.country) countries[v.country] = (countries[v.country] || 0) + 1
+    if (v.ip) {
+      uniqueIPs.add(v.ip)
+      if (!ipVisits[v.ip]) {
+        ipVisits[v.ip] = { count: 0, city: v.city || '—', lastSeen: v.created_at }
+      }
+      ipVisits[v.ip].count++
+    }
     if (v.city) cities[`${v.city}, ${v.region || v.country}`] = (cities[`${v.city}, ${v.region || v.country}`] || 0) + 1
-    if (v.ip) uniqueIPs.add(v.ip)
 
     const ua = (v.user_agent || '').toLowerCase()
     if (ua.includes('bot') || ua.includes('screenshot') || ua.includes('crawler')) devices.bot++
@@ -41,7 +46,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     byHour[hour] = (byHour[hour] || 0) + 1
   })
 
-  const topCountries = Object.entries(countries).sort((a, b) => b[1] - a[1]).slice(0, 10)
+  const topIPs = Object.entries(ipVisits)
+    .sort((a, b) => b[1].count - a[1].count)
+    .slice(0, 10)
   const topCities = Object.entries(cities).sort((a, b) => b[1] - a[1]).slice(0, 10)
 
   const flagEmoji = (code: string) => {
@@ -195,18 +202,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       <div class="label">🤖 Bots</div>
     </div>
     <div class="stat-card">
-      <div class="number">${Object.keys(countries).length}</div>
-      <div class="label">Países</div>
+      <div class="number">${topIPs.filter(([, info]) => info.count > 1).length}</div>
+      <div class="label">🔁 Recorrentes</div>
     </div>
   </div>
 
   <div class="panels">
     <div class="panel">
-      <h3>🌍 Top Países</h3>
-      ${topCountries.map(([c, n]) => `
+      <h3>👤 Top Visitantes</h3>
+      ${topIPs.map(([ip, info]) => `
         <div class="panel-row">
-          <span class="name"><span class="flag">${flagEmoji(c)}</span> ${c}</span>
-          <span class="count">${n}</span>
+          <span class="name" style="font-size:12px"><code style="color:#80B918">${ip}</code> <span style="color:#555;font-size:11px">${info.city}</span></span>
+          <span class="count">${info.count}x</span>
         </div>
       `).join('')}
     </div>
